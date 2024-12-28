@@ -155,30 +155,13 @@
             android:layout_height="wrap_content">
 
             <TextClock
-                android:id="@+id/textDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="48dp"
-                android:format12Hour="dd MMM yyyy"
-                android:format24Hour="yyyy-MM-dd / EEEE"
-                android:lineSpacingExtra="8sp"
-                android:paddingHorizontal="22dp"
-                android:textAlignment="textStart"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="#F3F3F3"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextClock
                 android:id="@+id/textClock"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="0dp"
-                android:paddingHorizontal="22dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="78dp"
+                android:paddingHorizontal="19dp"
                 android:format12Hour="hh:mm"
                 android:format24Hour="HH:mm"
                 android:textAlignment="textStart"
@@ -186,9 +169,28 @@
                 android:textColor="#F3F3F3"
                 android:textSize="68sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textDate"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textDate" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextClock
+                android:id="@+id/textDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:format12Hour="dd MMM yyyy"
+                android:format24Hour="yyyy-MM-dd / EEEE"
+                android:lineSpacingExtra="0sp"
+                android:paddingTop="0dp"
+                android:paddingHorizontal="22dp"
+                android:layout_marginBottom="38dp"
+                android:textAlignment="textStart"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="#F3F3F3"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textClock"
+                app:layout_constraintStart_toStartOf="@+id/textClock"
+                app:layout_constraintTop_toBottomOf="@+id/textClock" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
