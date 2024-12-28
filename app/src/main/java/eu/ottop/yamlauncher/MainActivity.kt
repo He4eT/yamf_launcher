@@ -145,16 +145,6 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
 
         setHomeListeners()
 
-        // Task to update the app menu every 15 seconds
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                while (true) {
-                    refreshAppMenu()
-                    delay(15000)
-                }
-            }
-        }
-
         setupApps()
     }
 
