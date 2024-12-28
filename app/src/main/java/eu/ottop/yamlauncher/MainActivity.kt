@@ -1196,13 +1196,26 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                 }
 
 
-                // Swipe right
+                    // Swipe right
                 else if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && sharedPreferenceManager.isGestureEnabled("right")) {
                     if (rightSwipeActivity.first != null && rightSwipeActivity.second != null) {
                         canLaunchShortcut = false
                         appUtils.launchApp(rightSwipeActivity.first!!.componentName, launcherApps.profiles[rightSwipeActivity.second!!])
                     } else {
                         Toast.makeText(this@MainActivity, getString(R.string.launch_error), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && !sharedPreferenceManager.isGestureEnabled("right")) {
+                    if (gestureUtils.isAccessibilityServiceEnabled(
+                            ScreenLockService::class.java
+                        )
+                    ) {
+                        val intent = Intent(this@MainActivity, ScreenLockService::class.java)
+                        intent.action = "RECENTS"
+                        startService(intent)
+                        finishAndRemoveTask()
+                    } else {
+                        gestureUtils.promptEnableAccessibility()
                     }
                 }
             }
