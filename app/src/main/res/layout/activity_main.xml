@@ -17,10 +17,6 @@
         android:orientation="vertical"
         android:visibility="invisible">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="60dp" />
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/menuTitle"
             android:layout_width="match_parent"
@@ -28,9 +24,8 @@
             android:background="@android:color/transparent"
             android:clickable="false"
             android:gravity="start"
-            android:paddingLeft="40dp"
+            android:paddingHorizontal="22dp"
             android:paddingTop="20dp"
-            android:paddingRight="40dp"
             android:paddingBottom="20dp"
             android:singleLine="true"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
@@ -75,7 +70,7 @@
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
+            android:layout_marginHorizontal="22dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="0.1"
@@ -96,7 +91,6 @@
                 android:singleLine="true"
                 android:textAlignment="viewStart"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColorHighlight="#5F33B5E5"
                 android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/internetSearch"
