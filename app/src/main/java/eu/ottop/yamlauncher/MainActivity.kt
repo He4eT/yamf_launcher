@@ -1170,8 +1170,31 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                 val deltaY = e2.y - e1.y
                 val deltaX = e2.x - e1.x
 
+                // Swipe right
+                if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && sharedPreferenceManager.isGestureEnabled("right")) {
+                    if (rightSwipeActivity.first != null && rightSwipeActivity.second != null) {
+                        canLaunchShortcut = false
+                        appUtils.launchApp(rightSwipeActivity.first!!.componentName, launcherApps.profiles[rightSwipeActivity.second!!])
+                    } else {
+                        Toast.makeText(this@MainActivity, getString(R.string.launch_error), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && !sharedPreferenceManager.isGestureEnabled("right")) {
+                    if (gestureUtils.isAccessibilityServiceEnabled(
+                            ScreenLockService::class.java
+                        )
+                    ) {
+                        val intent = Intent(this@MainActivity, ScreenLockService::class.java)
+                        intent.action = "RECENTS"
+                        startService(intent)
+                        finishAndRemoveTask()
+                    } else {
+                        gestureUtils.promptEnableAccessibility()
+                    }
+                }
+
                 // Swipe up
-                if (deltaY < -swipeThreshold && abs(velocityY) > swipeVelocityThreshold) {
+                else if (deltaY < -swipeThreshold && abs(velocityY) > swipeVelocityThreshold) {
                     canLaunchShortcut = false
                     openAppMenu()
                 }
@@ -1190,17 +1213,6 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                     if (leftSwipeActivity.first != null && leftSwipeActivity.second != null) {
                         canLaunchShortcut = false
                         appUtils.launchApp(leftSwipeActivity.first!!.componentName, launcherApps.profiles[leftSwipeActivity.second!!])
-                    } else {
-                        Toast.makeText(this@MainActivity, getString(R.string.launch_error), Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-
-                // Swipe right
-                else if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && sharedPreferenceManager.isGestureEnabled("right")) {
-                    if (rightSwipeActivity.first != null && rightSwipeActivity.second != null) {
-                        canLaunchShortcut = false
-                        appUtils.launchApp(rightSwipeActivity.first!!.componentName, launcherApps.profiles[rightSwipeActivity.second!!])
                     } else {
                         Toast.makeText(this@MainActivity, getString(R.string.launch_error), Toast.LENGTH_SHORT).show()
                     }
