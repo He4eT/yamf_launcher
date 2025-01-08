@@ -350,11 +350,11 @@ class UIUtils(private val context: Context) {
 
     // Size
     fun setClockSize(clock: TextClock) {
-        setTextSize(clock, sharedPreferenceManager.getClockSize(), 48F, 58F, 70F, 78F, 82F, 84F)
+        setTextSize(clock, sharedPreferenceManager.getClockSize(), 66F, 58F, 70F, 78F, 82F, 84F)
     }
 
     fun setDateSize(dateText: TextClock) {
-        setTextSize(dateText, sharedPreferenceManager.getDateSize(), 14F, 17F, 20F, 23F, 26F, 29F)
+        setTextSize(dateText, sharedPreferenceManager.getDateSize(), 22F, 17F, 20F, 23F, 26F, 29F)
     }
 
     fun setShortcutsSize(shortcuts: LinearLayout) {
@@ -363,7 +363,9 @@ class UIUtils(private val context: Context) {
 
         shortcuts.children.forEach {
             if (it is TextView) {
-                setShortcutSize(it, size)
+                it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22F)
+//                val padding = 15
+//                it.setPadding(0, dpToPx(padding), 0, dpToPx(padding))
             }
         }
     }
@@ -373,9 +375,9 @@ class UIUtils(private val context: Context) {
             when (size) {
                 "tiny" -> {
                     shortcut.setAutoSizeTextTypeUniformWithConfiguration(
-                        5,   // Min text size in SP
-                        20,   // Max text size in SP
-                        2,    // Step granularity in SP
+                        22,   // Min text size in SP
+                        22,   // Max text size in SP
+                        1,    // Step granularity in SP
                         TypedValue.COMPLEX_UNIT_SP // Unit of measurement
                     )
                 }
@@ -434,9 +436,9 @@ class UIUtils(private val context: Context) {
         regionText: TextView? = null
     ) {
         val size = sharedPreferenceManager.getAppSize()
-        setTextSize(textView, size, 21F, 24F, 27F, 30F, 33F, 36F)
+        setTextSize(textView, size, 22F, 24F, 27F, 30F, 33F, 36F)
         if (editText != null) {
-            setTextSize(editText, size, 21F, 24F, 27F, 30F, 33F, 36F)
+            setTextSize(editText, size, 22F, 24F, 27F, 30F, 33F, 36F)
         }
         if (regionText != null) {
             setTextSize(regionText, size, 11F, 14F, 17F, 20F, 23F, 26F)
@@ -444,11 +446,11 @@ class UIUtils(private val context: Context) {
     }
 
     fun setSearchSize(searchView: TextInputEditText) {
-        setTextSize(searchView, sharedPreferenceManager.getSearchSize(), 18F, 21F, 25F, 27F, 30F, 33F)
+        setTextSize(searchView, sharedPreferenceManager.getSearchSize(), 22F, 21F, 25F, 27F, 30F, 33F)
     }
 
     fun setMenuTitleSize(menuTitle: TextView) {
-        setTextSize(menuTitle, sharedPreferenceManager.getAppSize(), 27F, 30F, 33F, 36F, 39F, 42F)
+        setTextSize(menuTitle, sharedPreferenceManager.getAppSize(), 22F, 30F, 33F, 36F, 39F, 42F)
     }
 
     private fun setTextSize(view: TextView, size: String?, t: Float, s: Float, m: Float, l: Float, x: Float, h: Float) {

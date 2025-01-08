@@ -145,25 +145,6 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
 
         setHomeListeners()
 
-        // Task to update the app menu every 5 seconds
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                while (true) {
-                    refreshAppMenu()
-                    delay(5000)
-                }
-            }
-        }
-
-        // Task to update the weather every 10 minutes
-        lifecycleScope.launch(Dispatchers.IO) {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                while (true) {
-                    updateWeather()
-                    delay(600000)
-                }
-            }
-        }
         setupApps()
     }
 
@@ -1180,6 +1161,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                     }
                 }
                 else if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && !sharedPreferenceManager.isGestureEnabled("right")) {
+                    canLaunchShortcut = false
                     if (gestureUtils.isAccessibilityServiceEnabled(
                             ScreenLockService::class.java
                         )

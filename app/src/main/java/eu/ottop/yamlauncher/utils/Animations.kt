@@ -118,12 +118,10 @@ class Animations (context: Context) {
     private fun View.fadeIn(duration: Long = sharedPreferenceManager.getAnimationSpeed()) {
         if (visibility != View.VISIBLE) {
             alpha = 0f
-            translationY = -height.toFloat()/100
             visibility = View.VISIBLE
 
             animate()
                 .alpha(1f)
-                .translationY(0f)
                 .setDuration(duration)
                 .setListener(null)
         }
@@ -131,12 +129,12 @@ class Animations (context: Context) {
 
     private fun View.fadeOut() {
         if (visibility == View.VISIBLE) {
+            alpha = 0f
             isInAnim = true
             val duration = sharedPreferenceManager.getAnimationSpeed()
 
             animate()
                 .alpha(0f)
-                .translationY(-height.toFloat()/100)
                 .setDuration(duration/2)
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
