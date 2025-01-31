@@ -1151,52 +1151,78 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                 val deltaY = e2.y - e1.y
                 val deltaX = e2.x - e1.x
 
-                // Swipe right
-                if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && sharedPreferenceManager.isGestureEnabled("right")) {
-                    if (rightSwipeActivity.first != null && rightSwipeActivity.second != null) {
-                        canLaunchShortcut = false
-                        appUtils.launchApp(rightSwipeActivity.first!!.componentName, launcherApps.profiles[rightSwipeActivity.second!!])
-                    } else {
-                        Toast.makeText(this@MainActivity, getString(R.string.launch_error), Toast.LENGTH_SHORT).show()
-                    }
-                }
-                else if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && !sharedPreferenceManager.isGestureEnabled("right")) {
-                    canLaunchShortcut = false
-                    if (gestureUtils.isAccessibilityServiceEnabled(
-                            ScreenLockService::class.java
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    // Swipe right
+                    if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && sharedPreferenceManager.isGestureEnabled(
+                            "right"
                         )
                     ) {
-                        val intent = Intent(this@MainActivity, ScreenLockService::class.java)
-                        intent.action = "RECENTS"
-                        startService(intent)
-                        finishAndRemoveTask()
-                    } else {
-                        gestureUtils.promptEnableAccessibility()
-                    }
-                }
-
-                // Swipe up
-                else if (deltaY < -swipeThreshold && abs(velocityY) > swipeVelocityThreshold) {
-                    canLaunchShortcut = false
-                    openAppMenu()
-                }
-
-                // Swipe down
-                else if (deltaY > swipeThreshold && abs(velocityY) > swipeVelocityThreshold) {
-                    val statusBarService = getSystemService(Context.STATUS_BAR_SERVICE)
-                    val statusBarManager: Class<*> = Class.forName("android.app.StatusBarManager")
-                    val expandMethod: Method = statusBarManager.getMethod("expandNotificationsPanel")
-                    expandMethod.invoke(statusBarService)
-                }
-
-                // Swipe left
-                else if (deltaX < 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && sharedPreferenceManager.isGestureEnabled("left")){
-                    println(leftSwipeActivity)
-                    if (leftSwipeActivity.first != null && leftSwipeActivity.second != null) {
+                        if (rightSwipeActivity.first != null && rightSwipeActivity.second != null) {
+                            canLaunchShortcut = false
+                            appUtils.launchApp(
+                                rightSwipeActivity.first!!.componentName,
+                                launcherApps.profiles[rightSwipeActivity.second!!]
+                            )
+                        } else {
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.launch_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else if (deltaX > 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && !sharedPreferenceManager.isGestureEnabled(
+                            "right"
+                        )
+                    ) {
                         canLaunchShortcut = false
-                        appUtils.launchApp(leftSwipeActivity.first!!.componentName, launcherApps.profiles[leftSwipeActivity.second!!])
-                    } else {
-                        Toast.makeText(this@MainActivity, getString(R.string.launch_error), Toast.LENGTH_SHORT).show()
+                        if (gestureUtils.isAccessibilityServiceEnabled(
+                                ScreenLockService::class.java
+                            )
+                        ) {
+                            val intent = Intent(this@MainActivity, ScreenLockService::class.java)
+                            intent.action = "RECENTS"
+                            startService(intent)
+                            finishAndRemoveTask()
+                        } else {
+                            gestureUtils.promptEnableAccessibility()
+                        }
+                    }
+                    // Swipe left
+                    else if (deltaX < 0 && abs(deltaX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold && sharedPreferenceManager.isGestureEnabled(
+                            "left"
+                        )
+                    ) {
+                        println(leftSwipeActivity)
+                        if (leftSwipeActivity.first != null && leftSwipeActivity.second != null) {
+                            canLaunchShortcut = false
+                            appUtils.launchApp(
+                                leftSwipeActivity.first!!.componentName,
+                                launcherApps.profiles[leftSwipeActivity.second!!]
+                            )
+                        } else {
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.launch_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+
+                    // Swipe up
+                    if (deltaY < -swipeThreshold && abs(velocityY) > swipeVelocityThreshold) {
+                        canLaunchShortcut = false
+                        openAppMenu()
+                    }
+
+                    // Swipe down
+                    else if (deltaY > swipeThreshold && abs(velocityY) > swipeVelocityThreshold) {
+                        val statusBarService = getSystemService(Context.STATUS_BAR_SERVICE)
+                        val statusBarManager: Class<*> =
+                            Class.forName("android.app.StatusBarManager")
+                        val expandMethod: Method =
+                            statusBarManager.getMethod("expandNotificationsPanel")
+                        expandMethod.invoke(statusBarService)
                     }
                 }
             }
