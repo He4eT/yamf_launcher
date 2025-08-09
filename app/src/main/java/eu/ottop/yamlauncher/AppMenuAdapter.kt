@@ -116,7 +116,7 @@ class AppMenuAdapter(
                 holder.textView.setCompoundDrawablesWithIntrinsicBounds(ResourcesCompat.getDrawable(activity.resources, R.drawable.keep_filled_15px, null),null, ResourcesCompat.getDrawable(activity.resources, R.drawable.ic_empty, null),null)
             }
             else {
-                holder.textView.setCompoundDrawablesWithIntrinsicBounds(ResourcesCompat.getDrawable(activity.resources, R.drawable.keep_15px, null),null,ResourcesCompat.getDrawable(activity.resources, R.drawable.ic_empty, null),null)
+                holder.textView.setCompoundDrawablesWithIntrinsicBounds(ResourcesCompat.getDrawable(activity.resources, R.drawable.ic_empty, null),null,ResourcesCompat.getDrawable(activity.resources, R.drawable.ic_empty, null),null)
             }
             holder.textView.compoundDrawables[0].colorFilter = BlendModeColorFilter(sharedPreferenceManager.getTextColor(), BlendMode.SRC_ATOP)
         }
